@@ -35,9 +35,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 username = etLoginUsername.getText().toString();
 
-                Intent intent = new Intent(LoginActivity.this, ContactActivity.class);
-                intent.putExtra(ContactActivity.recvUsername,username);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra(MainActivity.recvUsername,username);
                 startActivityForResult(intent,0);
+                finish();
             }
         });
         tvLoginRegister.setOnClickListener(new View.OnClickListener() {
