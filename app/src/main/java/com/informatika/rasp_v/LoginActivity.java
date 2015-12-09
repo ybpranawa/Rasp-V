@@ -11,14 +11,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etLoginUsername;
-    private EditText etLoginPassword;
     private Button btnLogin;
     private TextView tvLoginRegister;
 
     public String username;
+    public static String recvUsername = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         etLoginUsername = (EditText)findViewById(R.id.etLoginUsername);
-        etLoginPassword = (EditText)findViewById(R.id.etLoginPassword);
         btnLogin = (Button)findViewById(R.id.btnLogin);
         tvLoginRegister = (TextView)findViewById(R.id.tvLoginRegister);
+
+        username = getIntent().getStringExtra(recvUsername);
+        etLoginUsername.setText(username);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username = etLoginUsername.getText().toString();
+                username = etLoginUsername.getText().toString().trim();
+                Toast.makeText(LoginActivity.this,"Logged in as "+username,Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 intent.putExtra(MainActivity.recvUsername,username);

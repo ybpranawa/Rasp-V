@@ -2,95 +2,36 @@
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fitsSystemWindows="true"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.informatika.rasp_v.MainActivity">
+
+    <!--<android.support.design.widget.AppBarLayout -->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_width="match_parent" -->
+    <!--android:theme="@style/AppTheme.AppBarOverlay">-->
+
+    <!--<android.support.v7.widget.Toolbar -->
+    <!--android:id="@+id/toolbar"-->
+    <!--android:layout_width="match_parent" -->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="?attr/colorPrimary" -->
+    <!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+    <!--</android.support.design.widget.AppBarLayout>-->
 
     <include layout="@layout/content_main" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_weight="1">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Rasp-V"
-                android:textSize="40sp"
-                android:textColor="#fff"
-                android:gravity="center"/>
-            <TextView
-                android:id="@+id/tvWelcome"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/fab_margin"
-                android:text="Selamat Datang"
-                android:textColor="#fff"
-                android:gravity="center"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_weight="1">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:gravity="top">
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/btnToContact"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/fab_margin"
-                    android:src="@android:drawable/ic_menu_call"
-                    app:backgroundTint="#76FF03"
-                    android:tint="#FFF" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Call"
-                    android:fontFamily=""
-                    android:gravity="center"
-                    android:textColor="#FFF"
-                    android:textSize="35sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:gravity="top">
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/btnToLogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/fab_margin"
-                    android:src="@android:drawable/ic_menu_close_clear_cancel"
-                    app:backgroundTint="#FF1744"
-                    android:tint="#FFF" />
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Logout"
-                    android:fontFamily=""
-                    android:gravity="center"
-                    android:textColor="#FFF"
-                    android:textSize="35sp"
-                    android:textStyle="bold"/>
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:backgroundTint="#3F51B5"
+        android:src="@android:drawable/ic_input_add"
+        android:tint="#FFF" />
 
 </android.support.design.widget.CoordinatorLayout>
