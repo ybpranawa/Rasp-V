@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -15,20 +17,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.informatika.rasp_v.adapter.ContactAdapter;
+import com.informatika.rasp_v.adapter.TabMainAdapter;
 
 public class MainActivity extends AppCompatActivity {
-    private ListView lvContact;
-
     private String username;
+    private ViewPager pager;
+    private TabLayout tabs;
     public static String recvUsername = null;
-
-    public static String[] listUsername = {
-            "fanyagriansyah","ybpranawa","kharismana","novanindaovari","nindyasaridu",
-            "yohanaseul","demsyiman","imaginearabella",
-            "fanyagriansyah","ybpranawa","kharismana","novanindaovari","nindyasaridu",
-            "yohanaseul","demsyiman","imaginearabella"
-    };
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,23 +31,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         username = getIntent().getStringExtra(recvUsername);
-        getSupportActionBar().setTitle("Hi, "+username+"!");
+        getSupportActionBar().setTitle("Hi, " + username + "!");
 
-        lvContact = (ListView) findViewById(R.id.lvContact);
+        pager = (ViewPager)findViewById(R.id.pager);
+        tabs = (TabLayout)findViewById(R.id.tabs);
 
-        context = this;
-        lvContact.setAdapter(new ContactAdapter(MainActivity.this, listUsername));
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        pager.setAdapter(new TabMainAdapter(getSupportFragmentManager()));
+        tabs.setTabTextColors(getResources().getColor(R.color.tabTextColorDeactive), getResources().getColor(R.color.tabTextColor));
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        tabs.setupWithViewPager(pager);
+        tabs.setTabGravity(TabLayout.GRAVITY_FILL);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

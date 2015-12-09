@@ -11,17 +11,16 @@ import android.widget.Toast;
 
 import com.informatika.rasp_v.MainActivity;
 import com.informatika.rasp_v.R;
+import com.informatika.rasp_v.fragment.ContactFragment;
 
 public class ContactAdapter extends BaseAdapter {
     String[] listUsername;
     Context context;
-    private TextView tvListContactNama;
-    private Button btnContactCall;
 
     private static LayoutInflater inflater = null;
 
-    public ContactAdapter(MainActivity mainActivity, String[] getListUsername){
-        context = mainActivity;
+    public ContactAdapter(Context mContext, String[] getListUsername){
+        context = mContext;
         listUsername = getListUsername;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
