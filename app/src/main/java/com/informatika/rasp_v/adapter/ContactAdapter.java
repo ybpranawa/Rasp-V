@@ -60,7 +60,7 @@ public class ContactAdapter extends BaseAdapter {
         rowView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(context, listUsername[i], Toast.LENGTH_LONG).show();
+//                Toast.makeText(context, listUsername[i], Toast.LENGTH_SHORT).show();
             }
         });
         holder.btnContactCall.setOnClickListener(new View.OnClickListener() {

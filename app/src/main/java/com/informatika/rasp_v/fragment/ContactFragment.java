@@ -12,6 +12,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -50,6 +51,7 @@ public class ContactFragment extends Fragment {
         lvContact.setAdapter(new ContactAdapter(this.getActivity(), listUsername));
         registerForContextMenu(lvContact);
         lvContact.setOnCreateContextMenuListener(this);
+
         return view;
     }
 
@@ -61,6 +63,26 @@ public class ContactFragment extends Fragment {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+        lvContact.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity(), "Menu", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+//        lvContact.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View view, MotionEvent motionEvent) {
+//                Toast.makeText(getActivity(), "onTouch()", Toast.LENGTH_SHORT).show();
+//                return true;
+//            }
+//        });
+        lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(getActivity(), "onItemClick()", Toast.LENGTH_SHORT).show();
             }
         });
     }
