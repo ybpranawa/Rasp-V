@@ -164,6 +164,7 @@ public class DialFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DiallingActivity.class);
                 intent.putExtra(DiallingActivity.recvUsername,allNumber);
                 startActivityForResult(intent, 0);
+                getActivity().finish();
             }
         });
         return view;
