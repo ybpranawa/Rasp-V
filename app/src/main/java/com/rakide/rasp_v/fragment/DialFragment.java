@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.TextureView;
 import android.view.View;
@@ -48,6 +49,8 @@ public class DialFragment extends Fragment {
         btnCall = (Button)view.findViewById(R.id.btnCall);
 
         etCallerID = (EditText)view.findViewById(R.id.etCallerID);
+        etCallerID.setInputType(InputType.TYPE_NULL);
+        etCallerID.setTextIsSelectable(true);
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override

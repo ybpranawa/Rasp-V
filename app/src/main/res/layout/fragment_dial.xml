@@ -19,7 +19,9 @@
             android:textAlignment="center"
             android:hint="Caller ID"
             android:textSize="20sp"
-            android:windowSoftInputMode="stateHidden"/>
+            android:windowSoftInputMode="stateHidden"
+            android:inputType="none"
+            android:textIsSelectable="true"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
