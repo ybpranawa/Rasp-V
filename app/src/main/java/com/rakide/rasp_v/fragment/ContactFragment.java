@@ -2,6 +2,7 @@ package com.rakide.rasp_v.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.rakide.rasp_v.DiallingActivity;
 import com.rakide.rasp_v.MainActivity;
 import com.rakide.rasp_v.R;
 import com.rakide.rasp_v.adapter.ContactAdapter;
@@ -106,7 +108,12 @@ public class ContactFragment extends Fragment {
         lvContact.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getActivity(), "onItemClick()", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Dialling "+listContact.get(i).displayName+"..." , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), DiallingActivity.class);
+                intent.putExtra(DiallingActivity.recvUsername, listContact.get(i).displayName);
+                startActivityForResult(intent,0);
+//                Toast.makeText(getActivity(), "onItemClick()", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -129,7 +136,10 @@ public class ContactFragment extends Fragment {
 
         switch(item.getItemId()) {
             case R.id.call_contact:
-                Toast.makeText(getActivity(),"Calling "+listContact.get((int)info.id).displayName+"..." , Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Dialling "+listContact.get((int)info.id).displayName+"..." , Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(), DiallingActivity.class);
+                intent.putExtra(DiallingActivity.recvUsername, listContact.get((int)info.id).displayName);
+                startActivityForResult(intent,0);
                 return true;
             case R.id.delete_contact:
                 Toast.makeText(getActivity(),listContact.get((int)info.id).displayName+" has been deleted ceritanya" , Toast.LENGTH_SHORT).show();

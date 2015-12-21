@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
         username = getIntent().getStringExtra(recvUsername);
         getSupportActionBar().setTitle("Hi, " + username + "!");
-//        getSupportActionBar().setTitle("Hi");
         pager = (ViewPager)findViewById(R.id.pager);
         tabs = (TabLayout)findViewById(R.id.tabs);
 
