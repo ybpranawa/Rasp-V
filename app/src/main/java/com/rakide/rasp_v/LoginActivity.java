@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
                 username = etLoginUsername.getText().toString().trim();
                 domain = "10.151.12.205";
 
+                //ini metode buat login nya pake SipProfile.Builder
                 SipProfile.Builder builder = null;
                 try {
                     builder = new SipProfile.Builder(username, domain);

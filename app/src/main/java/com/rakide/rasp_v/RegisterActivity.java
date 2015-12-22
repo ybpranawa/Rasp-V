@@ -47,6 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
                 password2 = etRegisterPassword2.getText().toString();
                 domain = "10.151.12.205";
 
+                //ini metode buat registernya pake SipProfile.Builder
                 SipProfile.Builder builder = null;
                 try {
                     builder = new SipProfile.Builder(username, domain);
