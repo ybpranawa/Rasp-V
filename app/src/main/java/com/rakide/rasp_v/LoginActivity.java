@@ -1,6 +1,7 @@
 package com.rakide.rasp_v;
 
 import android.content.Intent;
+import android.net.sip.*;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,13 +13,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+
 public class LoginActivity extends AppCompatActivity {
     private EditText etLoginUsername;
+    private EditText etLoginPassword;
     private Button btnLogin;
     private TextView tvLoginRegister;
 
     public String username;
+    public String password;
+    public String domain;
     public static String recvUsername = null;
+    public SipProfile mSipProfile=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +35,33 @@ public class LoginActivity extends AppCompatActivity {
         etLoginUsername = (EditText)findViewById(R.id.etLoginUsername);
         btnLogin = (Button)findViewById(R.id.btnLogin);
         tvLoginRegister = (TextView)findViewById(R.id.tvLoginRegister);
+        etLoginPassword = (EditText)findViewById(R.id.etLoginPassword);
 
         username = getIntent().getStringExtra(recvUsername);
         etLoginUsername.setText(username);
+        password = etLoginPassword.getText().toString();
+
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 username = etLoginUsername.getText().toString().trim();
+                domain = "10.151.12.205";
+
+                SipProfile.Builder builder = null;
+                try {
+                    builder = new SipProfile.Builder(username, domain);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                builder.setPassword(password);
+                mSipProfile = builder.build();
+
                 Toast.makeText(LoginActivity.this, "Logged in as " + username, Toast.LENGTH_LONG).show();
 
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                intent.putExtra(MainActivity.recvUsername, username);
-                startActivityForResult(intent, 0);
+                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                //intent.putExtra(MainActivity.recvUsername, username);
+                //startActivityForResult(intent, 0);
                 finish();
             }
         });
