@@ -20,11 +20,14 @@ public class AddContactActivity extends AppCompatActivity {
 
         btnAdd = (Button)findViewById(R.id.btnAdd);
 
-        btnAdd.setOnClickListener() {
-            Intent intent = new Intent(AddContactActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddContactActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
