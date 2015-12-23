@@ -12,6 +12,59 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rakide.rasp_v.AddContactActivity"
     tools:showIn="@layout/activity_add_contact"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add Contact"
+            android:textSize="32sp"
+            android:textColor="#fff"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="top|center_vertical"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/etRegisterNama"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nama Lengkap"
+            android:textColorHint="#fff"
+            android:text=""
+            android:textColor="#fff"/>
+        <EditText
+            android:id="@+id/etRegisterUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nomor"
+            android:textColorHint="#fff"
+            android:text=""
+            android:textColor="#fff"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="16dp">
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="ADD"
+                android:textColor="#fff"
+                android:background="@color/colorPrimaryDark"/>
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
