@@ -13,7 +13,7 @@
     tools:showIn="@layout/activity_register"
     tools:context="com.informatika.rasp_v.LoginActivity"
     android:orientation="vertical"
-    android:background="#3F51B5">
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -88,7 +88,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:text="Register"
                 android:textColor="#fff"
-                android:background="#1A237E"/>
+                android:background="@color/colorPrimaryDark"/>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

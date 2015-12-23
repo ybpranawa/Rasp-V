@@ -2,6 +2,7 @@ package com.rakide.rasp_v.fragment;
 
 
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.rakide.rasp_v.DiallingActivity;
 import com.rakide.rasp_v.R;
@@ -22,7 +24,8 @@ public class DialFragment extends Fragment {
     private Button  btn1, btn2, btn3,
                     btn4, btn5, btn6,
                     btn7, btn8, btn9,
-                    btnCall, btn0, btnC;
+                    btn0;
+    private ImageView btnCall, btnC;
     private EditText etCallerID;
 
     public DialFragment() {
@@ -45,8 +48,8 @@ public class DialFragment extends Fragment {
         btn7 = (Button)view.findViewById(R.id.btn7);
         btn8 = (Button)view.findViewById(R.id.btn8);
         btn9 = (Button)view.findViewById(R.id.btn9);
-        btnC = (Button)view.findViewById(R.id.btnC);
-        btnCall = (Button)view.findViewById(R.id.btnCall);
+        btnC = (ImageView)view.findViewById(R.id.ivC);
+        btnCall = (ImageView)view.findViewById(R.id.ivCall);
 
         etCallerID = (EditText)view.findViewById(R.id.etCallerID);
         etCallerID.setInputType(InputType.TYPE_NULL);

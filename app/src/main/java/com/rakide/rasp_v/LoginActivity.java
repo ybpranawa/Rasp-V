@@ -49,20 +49,20 @@ public class LoginActivity extends AppCompatActivity {
                 domain = "10.151.12.205";
 
                 //ini metode buat login nya pake SipProfile.Builder
-                SipProfile.Builder builder = null;
-                try {
-                    builder = new SipProfile.Builder(username, domain);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                builder.setPassword(password);
-                mSipProfile = builder.build();
+//                SipProfile.Builder builder = null;
+//                try {
+//                    builder = new SipProfile.Builder(username, domain);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//                builder.setPassword(password);
+//                mSipProfile = builder.build();
 
                 Toast.makeText(LoginActivity.this, "Logged in as " + username, Toast.LENGTH_LONG).show();
 
-                //Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                //intent.putExtra(MainActivity.recvUsername, username);
-                //startActivityForResult(intent, 0);
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra(MainActivity.recvUsername, username);
+                startActivityForResult(intent, 0);
                 finish();
             }
         });

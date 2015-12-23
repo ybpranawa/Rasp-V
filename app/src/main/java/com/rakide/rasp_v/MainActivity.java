@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -37,12 +38,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         username = getIntent().getStringExtra(recvUsername);
-        getSupportActionBar().setTitle("Hi, " + username + "!");
+        if (username == null){
+            username = "";
+        }
+        getSupportActionBar().setTitle("Hi, " + username + " !");
         pager = (ViewPager)findViewById(R.id.pager);
         tabs = (TabLayout)findViewById(R.id.tabs);
 
         pager.setAdapter(new TabMainAdapter(getSupportFragmentManager()));
         tabs.setTabTextColors(getResources().getColor(R.color.tabTextColorDeactive), getResources().getColor(R.color.tabTextColor));
+//        tabs.setTabTextColors(ContextCompat.getColor(context,R.color.tabTextColorDeactive), getResources().getColor(R.color.tabTextColor));
 
         tabs.setupWithViewPager(pager);
         tabs.setTabGravity(TabLayout.GRAVITY_FILL);
