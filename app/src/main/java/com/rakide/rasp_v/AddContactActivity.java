@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.content.Intent;
 
+import com.rakide.rasp_v.adapter.ContactAdapter;
+import com.rakide.rasp_v.fragment.ContactFragment;
+
 public class AddContactActivity extends AppCompatActivity {
     private Button btnAdd;
 
@@ -23,7 +26,7 @@ public class AddContactActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddContactActivity.this, MainActivity.class);
+                Intent intent = new Intent(AddContactActivity.this, ContactFragment.class);
                 startActivity(intent);
                 finish();
             }
