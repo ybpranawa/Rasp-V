@@ -7,13 +7,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.content.Intent;
 
 public class AddContactActivity extends AppCompatActivity {
+    private Button btnAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_contact);
+
+        btnAdd = (Button)findViewById(R.id.btnAdd);
+
+        btnAdd.setOnClickListener() {
+            Intent intent = new Intent(AddContactActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
