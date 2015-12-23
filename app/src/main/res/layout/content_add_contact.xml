@@ -34,7 +34,7 @@
         android:gravity="top|center_vertical"
         android:orientation="vertical">
         <EditText
-            android:id="@+id/etRegisterNama"
+            android:id="@+id/etAddNama"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nama Lengkap"
@@ -42,10 +42,10 @@
             android:text=""
             android:textColor="#fff"/>
         <EditText
-            android:id="@+id/etRegisterUsername"
+            android:id="@+id/etAddNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nomor"
+            android:hint="Number"
             android:textColorHint="#fff"
             android:text=""
             android:textColor="#fff"/>
@@ -57,7 +57,7 @@
             android:gravity="center"
             android:layout_marginTop="16dp">
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
