@@ -19,6 +19,7 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.rakide.rasp_v.AddContactActivity;
 import com.rakide.rasp_v.DiallingActivity;
 import com.rakide.rasp_v.MainActivity;
 import com.rakide.rasp_v.R;
@@ -45,7 +46,7 @@ public class ContactFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
-        fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab = (FloatingActionButton) view.findViewById(R.id.fabAddContact);
         // =================
 
         list.displayName = "Fany Agriansyah";
@@ -100,8 +101,8 @@ public class ContactFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getActivity(), AddContactActivity.class);
+                startActivity(intent);
             }
         });
 

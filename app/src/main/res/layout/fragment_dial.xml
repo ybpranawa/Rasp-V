@@ -22,7 +22,7 @@
             android:textSize="40sp"
             android:windowSoftInputMode="stateHidden"
             android:inputType="none"
-            android:background="#fff"
+            android:background="@drawable/button_boarder"
             android:textIsSelectable="true"
             android:layout_weight="1.57" />
 
@@ -44,7 +44,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="1"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
 
             <Button
@@ -53,7 +53,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="2"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
             <Button
                 android:id="@+id/btn3"
@@ -61,7 +61,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="3"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
         </LinearLayout>
         <LinearLayout
@@ -75,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="4"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
             <Button
                 android:id="@+id/btn5"
@@ -83,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="5"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
             <Button
                 android:id="@+id/btn6"
@@ -91,7 +91,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="6"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
         </LinearLayout>
         <LinearLayout
@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="7"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
             <Button
                 android:id="@+id/btn8"
@@ -113,7 +113,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="8"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
             <Button
                 android:id="@+id/btn9"
@@ -121,7 +121,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="9"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
         </LinearLayout>
         <LinearLayout
@@ -140,7 +140,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="0"
-                android:background="#fff"
+                android:background="@drawable/button_boarder"
                 android:textSize="20sp"/>
             <ImageView
                 android:id="@+id/ivC"
