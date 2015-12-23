@@ -26,7 +26,7 @@ public class AddContactActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddContactActivity.this, ContactFragment.class);
+                Intent intent = new Intent(AddContactActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
