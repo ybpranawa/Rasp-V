@@ -40,7 +40,8 @@
             android:hint="Username"
             android:textColorHint="#fff"
             android:text=""
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:key="usernamePref"/>
         <EditText
             android:id="@+id/etLoginPassword"
             android:layout_width="match_parent"
@@ -49,7 +50,8 @@
             android:inputType="textPassword"
             android:textColorHint="#fff"
             android:text=""
-            android:textColor="#fff"/>
+            android:textColor="#fff"
+            android:key="passwordPref"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

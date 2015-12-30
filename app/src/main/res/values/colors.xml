@@ -8,5 +8,5 @@
     <color name="tabPrimary">#00897B</color>
     <color name="tabTextColor">#FFF</color>
     <color name="tabTextColorDeactive">#80CBC4</color>
-    <color name="tabIndicatorColor">#3F51B5</color>
+    <color name="tabIndicatorColor">#FFF</color>
 </resources>

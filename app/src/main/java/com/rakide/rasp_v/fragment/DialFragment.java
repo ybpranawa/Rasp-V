@@ -4,6 +4,9 @@ package com.rakide.rasp_v.fragment;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
+import android.net.sip.SipAudioCall;
+import android.net.sip.SipManager;
+import android.net.sip.SipProfile;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
@@ -16,7 +19,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.rakide.rasp_v.DiallingActivity;
+import com.rakide.rasp_v.MainActivity;
 import com.rakide.rasp_v.R;
+import com.rakide.rasp_v.adapter.IncomingCallReceiver;
 
 public class DialFragment extends Fragment {
     private String allNumber;
@@ -167,12 +172,16 @@ public class DialFragment extends Fragment {
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DiallingActivity.class);
-                intent.putExtra(DiallingActivity.recvUsername,allNumber);
-                startActivityForResult(intent, 0);
-                getActivity().finish();
+//                Intent intent = new Intent(getActivity(), DiallingActivity.class);
+//                intent.putExtra(DiallingActivity.recvUsername,allNumber);
+//                startActivityForResult(intent, 0);
+//                getActivity().finish();
             }
         });
+
+        // ============================ SIP ============================
+
+        // =========================End of SIP =========================
         return view;
     }
     public String deleteLast(String s) {
