@@ -58,9 +58,10 @@ public class RegisterActivity extends AppCompatActivity {
                 mSipProfile = builder.build();
 
                 //dikasih if dulu baru redirect ke halaman lainnya
-                //Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
-                //intent.putExtra(LoginActivity.recvUsername,username);
-                //startActivityForResult(intent,0);
+
+                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                intent.putExtra(LoginActivity.recvUsername,username);
+                startActivityForResult(intent,0);
 
                 finish();
             }
