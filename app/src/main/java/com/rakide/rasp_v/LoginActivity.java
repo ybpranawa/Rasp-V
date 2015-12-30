@@ -1,19 +1,13 @@
 package com.rakide.rasp_v;
 
 import android.content.Intent;
-import android.net.sip.*;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.text.ParseException;
 
 public class LoginActivity extends AppCompatActivity {
     private EditText etLoginUsername;
@@ -23,9 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public String username;
     public String password;
-    public String domain;
     public static String recvUsername = null;
-    public SipProfile mSipProfile=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,19 +37,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                username = etLoginUsername.getText().toString().trim();
-                domain = "10.151.12.205";
-
-                //ini metode buat login nya pake SipProfile.Builder
-//                SipProfile.Builder builder = null;
-//                try {
-//                    builder = new SipProfile.Builder(username, domain);
-//                } catch (ParseException e) {
-//                    e.printStackTrace();
-//                }
-//                builder.setPassword(password);
-//                mSipProfile = builder.build();
-
                 Toast.makeText(LoginActivity.this, "Logged in as " + username, Toast.LENGTH_LONG).show();
 
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

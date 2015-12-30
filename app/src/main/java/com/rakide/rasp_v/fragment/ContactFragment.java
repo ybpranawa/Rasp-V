@@ -113,8 +113,6 @@ public class ContactFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), DiallingActivity.class);
                 intent.putExtra(DiallingActivity.recvUsername, listContact.get(i).displayName);
                 startActivityForResult(intent,0);
-//                Toast.makeText(getActivity(), "onItemClick()", Toast.LENGTH_SHORT).show();
-
             }
         });
     }
