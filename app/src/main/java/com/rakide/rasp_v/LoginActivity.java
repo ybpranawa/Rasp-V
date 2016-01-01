@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         //username = getIntent().getStringExtra(recvUsername);
         username = "fany";
         domain = "10.151.12.205";
-        etLoginUsername.setText(username);
+        //etLoginUsername.setText(username);
         //password = etLoginPassword.getText().toString();
         password="pwd_fany";
 
@@ -49,63 +49,44 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(SipManager.isVoipSupported(LoginActivity.this)) {
+                    //Toast.makeText(LoginActivity.this, "support", Toast.LENGTH_SHORT).show();
+                    if(mSipManager == null) {
+                        mSipManager = SipManager.newInstance(LoginActivity.this);
+                    }
 
-                if(mSipManager == null) {
-                    mSipManager = SipManager.newInstance(LoginActivity.this);
+                    try {
+                        SipProfile.Builder builder = new SipProfile.Builder(username, domain);
+                        builder.setPassword(password);
+                        mSipProfile = builder.build();
+
+                        /*Intent intent = new Intent();
+                        intent.setAction("com.rakide.rasp_v.MainActivity");
+                        PendingIntent pendingIntent = PendingIntent.getBroadcast(LoginActivity.this, 0, intent, Intent.FILL_IN_DATA);
+                        mSipManager.open(mSipProfile, pendingIntent, null);*/
+
+                        mSipManager.setRegistrationListener(mSipProfile.getUriString(), new SipRegistrationListener() {
+
+                            public void onRegistering(String localProfileUri) {
+                                Toast.makeText(LoginActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
+                            }
+
+                            public void onRegistrationDone(String localProfileUri, long expiryTime) {
+                                Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                            }
+
+                            public void onRegistrationFailed(String localProfileUri, int errorCode, String errorMessage) {
+                                Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    } catch (SipException e) {
+                        Toast.makeText(LoginActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
+                    } catch (ParseException pe){
+                        Toast.makeText(LoginActivity.this, "Connection Error", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-                SipProfile.Builder builder = null;
-                try {
-                    builder = new SipProfile.Builder(username, domain);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-                builder.setPassword(password);
-                mSipProfile = builder.build();
-
-//                Intent intent = new Intent();
-//                intent.setAction("com.rakide.rasp_v.MainActivity");
-//                PendingIntent pendingIntent = PendingIntent.getBroadcast(LoginActivity.this, 0, intent, Intent.FILL_IN_DATA);
-//                try {
-//                    mSipManager.open(mSipProfile, pendingIntent, null);
-//                } catch (SipException e) {
-//                    e.printStackTrace();
-//                }
-
-//                try {
-//                    mSipManager.setRegistrationListener(mSipProfile.getUriString(), new SipRegistrationListener() {
-//
-//                        public void onRegistering(String localProfileUri) {
-//                            Toast.makeText(LoginActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        public void onRegistrationDone(String localProfileUri, long expiryTime) {
-//                            Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                        public void onRegistrationFailed(String localProfileUri, int errorCode, String errorMessage) {
-//                            Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
-//                        }
-//                    });
-//                } catch (SipException e) {
-//                    Toast.makeText(LoginActivity.this, "Error", Toast.LENGTH_SHORT).show();
-//                }
-                if(SipManager.isApiSupported(LoginActivity.this))
-                    Toast.makeText(LoginActivity.this,"support", Toast.LENGTH_SHORT).show();
                 else
-                    Toast.makeText(LoginActivity.this, "gak support", Toast.LENGTH_SHORT).show();
-
-
-                    /*Toast.makeText(LoginActivity.this,"Logged in as "+username,Toast.LENGTH_LONG).
-
-                    show();
-
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra(MainActivity.recvUsername,username);
-
-                    startActivityForResult(intent, 0);
-
-                    finish();*/
+                    Toast.makeText(LoginActivity.this, "Tidak Support", Toast.LENGTH_SHORT).show();
                 }
             });
         tvLoginRegister.setOnClickListener(new View.OnClickListener() {
@@ -116,5 +97,43 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
+    /*public void initializemanager()
+    {
+        if(mSipManager == null) {
+            mSipManager = SipManager.newInstance(LoginActivity.this);
+        }
+
+        try {
+            SipProfile.Builder builder = new SipProfile.Builder(username, domain);
+            builder.setPassword(password);
+            mSipProfile = builder.build();
+
+            Intent intent = new Intent();
+            intent.setAction("com.rakide.rasp_v.MainActivity");
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(LoginActivity.this, 0, intent, Intent.FILL_IN_DATA);
+            mSipManager.open(mSipProfile, pendingIntent, null);
+
+
+            mSipManager.setRegistrationListener(mSipProfile.getUriString(), new SipRegistrationListener() {
+
+                public void onRegistering(String localProfileUri) {
+                    Toast.makeText(LoginActivity.this, "Registering...", Toast.LENGTH_SHORT).show();
+                }
+
+                public void onRegistrationDone(String localProfileUri, long expiryTime) {
+                    Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
+                }
+
+                public void onRegistrationFailed(String localProfileUri, int errorCode, String errorMessage) {
+                    Toast.makeText(LoginActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (SipException e) {
+
+        } catch (ParseException pe){
+
+        }
+    }*/
 
 }
