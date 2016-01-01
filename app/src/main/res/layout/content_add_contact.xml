@@ -12,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rakide.rasp_v.AddContactActivity"
     tools:showIn="@layout/activity_add_contact"
-    android:background="@color/colorPrimary"
+    android:background="#fff"
     android:orientation="vertical">
 
     <LinearLayout
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Add Contact"
             android:textSize="32sp"
-            android:textColor="#fff"/>
+            android:textColor="#26A69A"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -38,7 +38,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nama Lengkap"
-            android:textColorHint="#fff"
             android:text=""
             android:textColor="#fff"/>
         <EditText
@@ -46,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Number"
-            android:textColorHint="#fff"
             android:text=""
             android:textColor="#fff"/>
 

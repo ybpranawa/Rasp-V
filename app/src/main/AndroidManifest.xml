@@ -25,8 +25,6 @@
         android:name="android.hardware.microphone"
         android:required="true" />
 
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -71,7 +69,8 @@
         <activity
             android:name=".AddContactActivity"
             android:label="@string/title_activity_add_contact"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".Unsupported2Activity"></activity>
     </application>
 
 </manifest>
