@@ -211,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onCallEstablished(SipAudioCall call) {
                     call.startAudio();
                     call.setSpeakerMode(true);
-//                    call.toggleMute();
+                    //call.toggleMute();
                     updateStatus(call);
                 }
 
