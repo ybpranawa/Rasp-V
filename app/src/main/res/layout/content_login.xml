@@ -19,12 +19,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Rasp-V"
             android:textSize="40sp"
+            android:textColor="#fff"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="status"
+            android:gravity="center"
             android:textColor="#fff"/>
     </LinearLayout>
     <LinearLayout
