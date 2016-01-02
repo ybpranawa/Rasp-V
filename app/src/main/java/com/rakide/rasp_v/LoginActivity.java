@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
         //username = getIntent().getStringExtra(recvUsername);
 
         domain = "10.151.12.205";
-        username = "fany";
-        password = "pwd_fany";
+        //username = "tities";
+        //password = "pwd_tities";
         //etLoginUsername.setText(username);
         //password = etLoginPassword.getText().toString();
 
@@ -79,8 +79,11 @@ public class LoginActivity extends AppCompatActivity {
                 if(SipManager.isVoipSupported(LoginActivity.this)) {
                     //Toast.makeText(LoginActivity.this, "support", Toast.LENGTH_SHORT).show();
                     EditText textField = (EditText)findViewById(R.id.etLoginUsername);
-                    sipAddress = textField.getText().toString();
-                    initiateCall();
+                    username = textField.getText().toString();
+                    EditText passwd=(EditText)findViewById(R.id.etLoginPassword);
+                    password=passwd.getText().toString();
+                    //initiateCall();
+                    initializeLocalProfile();
                 }
                 else
                     Toast.makeText(LoginActivity.this, "Tidak Support", Toast.LENGTH_SHORT).show();
@@ -122,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
             manager = SipManager.newInstance(this);
         }
 
-        initializeLocalProfile();
+        //initializeLocalProfile();
     }
 
     /**
