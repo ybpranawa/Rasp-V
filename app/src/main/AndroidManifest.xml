@@ -70,7 +70,10 @@
             android:name=".AddContactActivity"
             android:label="@string/title_activity_add_contact"
             android:theme="@style/AppTheme" />
-        <activity android:name=".Unsupported2Activity"></activity>
+        <activity
+            android:name=".UnsupportedActivity"
+            android:label="@string/title_activity_unsupported"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

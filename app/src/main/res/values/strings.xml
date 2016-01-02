@@ -11,4 +11,5 @@
     <string name="title_activity_calling">CallingActivity</string>
     <string name="title_activity_incoming">IncomingActivity</string>
     <string name="title_activity_add_contact">AddContactActivity</string>
+    <string name="title_activity_unsupported">UnsupportedActivity</string>
 </resources>
