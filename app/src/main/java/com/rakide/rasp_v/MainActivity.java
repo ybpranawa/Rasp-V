@@ -1,6 +1,7 @@
 package com.rakide.rasp_v;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -18,16 +19,17 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabs;
 
     public static String recvUsername = null;
+    public static final String SIP_PREF = "SIP_PREF";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        username = getIntent().getStringExtra(recvUsername);
-        if (username == null){
-            username = " ";
-        }
+        SharedPreferences prefs = getSharedPreferences(SIP_PREF, MODE_PRIVATE);
+
+        username = prefs.getString("username","");
+
         getSupportActionBar().setTitle("Hi, " + username + " !");
         pager = (ViewPager)findViewById(R.id.pager);
         tabs = (TabLayout)findViewById(R.id.tabs);

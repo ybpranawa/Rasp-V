@@ -17,6 +17,7 @@ import android.widget.Toast;
 import android.net.sip.*;
 
 import com.rakide.rasp_v.object.IncomingCallReceiver;
+import com.rakide.rasp_v.object.SIPAdapter;
 
 import java.text.ParseException;
 
@@ -25,7 +26,9 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etLoginPassword;
     private Button btnLogin;
     private TextView tvLoginRegister;
+    private TextView tvStatus;
 
+    public static final String SIP_PREF = "SIP_PREF";
     public String domain;
     public String username;
     public String password;
@@ -33,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public String sipAddress = null;
 
+    public SIPAdapter sipAdapter = null;
     public SipManager manager = null;
     public SipProfile me = null;
     public SipAudioCall call = null;
@@ -52,14 +56,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button)findViewById(R.id.btnLogin);
         tvLoginRegister = (TextView)findViewById(R.id.tvLoginRegister);
         etLoginPassword = (EditText)findViewById(R.id.etLoginPassword);
+        tvStatus = (TextView) findViewById(R.id.tvStatus);
 
-        //username = getIntent().getStringExtra(recvUsername);
+        username = getIntent().getStringExtra(recvUsername);
 
         domain = "10.151.12.205";
-        //username = "tities";
-        //password = "pwd_tities";
-        //etLoginUsername.setText(username);
-        //password = etLoginPassword.getText().toString();
+        etLoginUsername.setText(username);
 
         // Set up the intent filter.  This will be used to fire an
         // IncomingCallReceiver when someone calls the SIP address used by this
@@ -82,6 +84,11 @@ public class LoginActivity extends AppCompatActivity {
                     username = textField.getText().toString();
                     EditText passwd=(EditText)findViewById(R.id.etLoginPassword);
                     password=passwd.getText().toString();
+                    SharedPreferences.Editor editor = getSharedPreferences(SIP_PREF, MODE_PRIVATE).edit();
+                    editor.putString("domain", domain);
+                    editor.putString("username", username);
+                    editor.putString("password", password);
+                    editor.commit();
                     //initiateCall();
                     initializeLocalProfile();
                 }
@@ -162,7 +169,7 @@ public class LoginActivity extends AppCompatActivity {
 
             manager.setRegistrationListener(me.getUriString(), new SipRegistrationListener() {
                 public void onRegistering(String localProfileUri) {
-                    updateStatus("Registering with SIP Server...");
+                    updateStatus("Logging in with SIP Server...");
                 }
 
                 public void onRegistrationDone(String localProfileUri, long expiryTime) {
@@ -171,7 +178,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 public void onRegistrationFailed(String localProfileUri, int errorCode,
                                                  String errorMessage) {
-                    updateStatus("Registration failed.  Please check settings.");
+                    updateStatus("Login failed. Please check username and password.");
                 }
             });
         } catch (ParseException pe) {
@@ -199,52 +206,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     /**
-     * Make an outgoing call.
-     */
-    public void initiateCall() {
-
-        updateStatus(sipAddress);
-
-        try {
-            SipAudioCall.Listener listener = new SipAudioCall.Listener() {
-                // Much of the client's interaction with the SIP Stack will
-                // happen via listeners.  Even making an outgoing call, don't
-                // forget to set up a listener to set things up once the call is established.
-                @Override
-                public void onCallEstablished(SipAudioCall call) {
-                    call.startAudio();
-                    call.setSpeakerMode(true);
-                    //call.toggleMute();
-                    updateStatus(call);
-                }
-
-                @Override
-                public void onCallEnded(SipAudioCall call) {
-                    updateStatus("Ready.");
-                }
-            };
-
-            call = manager.makeAudioCall(me.getUriString(), sipAddress, listener, 30);
-
-        }
-        catch (Exception e) {
-            Log.i("WalkieTalkieActivity/InitiateCall", "Error when trying to close manager.", e);
-            if (me != null) {
-                try {
-                    manager.close(me.getUriString());
-                } catch (Exception ee) {
-                    Log.i("WalkieTalkieActivity/InitiateCall",
-                            "Error when trying to close manager.", ee);
-                    ee.printStackTrace();
-                }
-            }
-            if (call != null) {
-                call.close();
-            }
-        }
-    }
-
-    /**
      * Updates the status box at the top of the UI with a messege of your choice.
      * @param status The String to display in the status box.
      */
@@ -252,8 +213,12 @@ public class LoginActivity extends AppCompatActivity {
         // Be a good citizen.  Make sure UI changes fire on the UI thread.
         this.runOnUiThread(new Runnable() {
             public void run() {
-                TextView labelView = (TextView) findViewById(R.id.tvStatus);
-                labelView.setText(status);
+                tvStatus.setText(status);
+                if (tvStatus.getText().toString().equals("Ready") ){
+                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

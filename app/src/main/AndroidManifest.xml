@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rakide.rasp_v">
 
-    <uses-sdk android:minSdkVersion="9" />
+    <uses-sdk android:minSdkVersion="11" />
 
-    <receiver
-        android:name=".IncomingCallReceiver"
-        android:label="Call Receiver" />
+    <receiver android:name=".IncomingCallReceiver" android:label="Call Receiver" />
 
     <uses-permission android:name="android.permission.USE_SIP" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -72,8 +70,8 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".UnsupportedActivity"
-            android:label="@string/title_activity_unsupported"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_unsupported_activity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
