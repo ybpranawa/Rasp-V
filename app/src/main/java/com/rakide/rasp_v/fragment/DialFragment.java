@@ -1,19 +1,25 @@
 package com.rakide.rasp_v.fragment;
 
 
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.net.sip.*;
 
 import com.rakide.rasp_v.DiallingActivity;
 import com.rakide.rasp_v.R;
+
+import java.text.ParseException;
 
 public class DialFragment extends Fragment {
     private String allNumber;
@@ -24,6 +30,10 @@ public class DialFragment extends Fragment {
                     btn0;
     private ImageView btnCall, btnC;
     private EditText etCallerID;
+
+    public String domain;
+    public String password;
+    public String sipAddress;
 
     public DialFragment() {
         // Required empty public constructor
@@ -51,6 +61,10 @@ public class DialFragment extends Fragment {
         etCallerID = (EditText)view.findViewById(R.id.etCallerID);
         etCallerID.setInputType(InputType.TYPE_NULL);
         etCallerID.setTextIsSelectable(true);
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("SIP_PREF", getActivity().MODE_PRIVATE);
+        domain = prefs.getString("domain","");
+        sipAddress = prefs.getString("sipAddress", "");
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,9 +178,14 @@ public class DialFragment extends Fragment {
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                sipAddress = etCallerID.getText().toString();
+                sipAddress = sipAddress + "@" + domain;
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("SIP_PREF", getActivity().MODE_PRIVATE).edit();
+                editor.putString("sipAddress", sipAddress);
+                editor.commit();
+
                 Intent intent = new Intent(getActivity(), DiallingActivity.class);
-                intent.putExtra(DiallingActivity.recvUsername,allNumber);
-                startActivityForResult(intent, 0);
+                startActivity(intent);
                 getActivity().finish();
             }
         });

@@ -29,12 +29,10 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvStatus;
 
     public static final String SIP_PREF = "SIP_PREF";
-    public String domain;
+    public static String domain;
     public String username;
     public String password;
     public static String recvUsername = null;
-
-    public String sipAddress = null;
 
     public SIPAdapter sipAdapter = null;
     public SipManager manager = null;
@@ -80,10 +78,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(SipManager.isVoipSupported(LoginActivity.this)) {
                     //Toast.makeText(LoginActivity.this, "support", Toast.LENGTH_SHORT).show();
-                    EditText textField = (EditText)findViewById(R.id.etLoginUsername);
-                    username = textField.getText().toString();
-                    EditText passwd=(EditText)findViewById(R.id.etLoginPassword);
-                    password=passwd.getText().toString();
+                    username = etLoginUsername.getText().toString();
+                    password = etLoginPassword.getText().toString();
                     SharedPreferences.Editor editor = getSharedPreferences(SIP_PREF, MODE_PRIVATE).edit();
                     editor.putString("domain", domain);
                     editor.putString("username", username);
@@ -147,11 +143,6 @@ public class LoginActivity extends AppCompatActivity {
         if (me != null) {
             closeLocalProfile();
         }
-
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//        String username = prefs.getString("namePref", "");
-//        String domain = prefs.getString("domainPref", "");
-//        String password = prefs.getString("passPref", "");
 
         try {
             SipProfile.Builder builder = new SipProfile.Builder(username, domain);
