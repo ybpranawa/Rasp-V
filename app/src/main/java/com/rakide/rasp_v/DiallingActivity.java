@@ -51,15 +51,14 @@ public class DiallingActivity extends AppCompatActivity {
         btnEndCallDialling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(call != null) {
                     try {
                         call.endCall();
                     } catch (SipException se) {
 //                        Log.d("WalkieTalkieActivity/onOptionsItemSelected",
 //                                "Error ending call.", se);
                     }
-                    call.close();
-                }
+                    //call.close();
+                call.close();
                 Intent intent = new Intent(DiallingActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
