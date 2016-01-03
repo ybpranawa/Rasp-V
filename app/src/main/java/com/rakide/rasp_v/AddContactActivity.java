@@ -4,10 +4,7 @@ import android.app.PendingIntent;
 import android.content.SharedPreferences;
 import android.net.sip.*;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,10 +13,7 @@ import android.content.Intent;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.rakide.rasp_v.adapter.ContactAdapter;
-import com.rakide.rasp_v.fragment.ContactFragment;
 import com.rakide.rasp_v.object.IncomingCallReceiver;
-
 import java.text.ParseException;
 
 public class AddContactActivity extends AppCompatActivity {
@@ -54,7 +48,7 @@ public class AddContactActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();*/
                 EditText textEdit=(EditText)findViewById(R.id.etAddNumber);
-                sipAddress=textEdit.getText().toString()+ "@" +domain;
+                sipAddress = textEdit.getText().toString()+ "@" +domain;
                 initiateCall();
             }
         });
@@ -192,12 +186,12 @@ public class AddContactActivity extends AppCompatActivity {
                     //call.setSpeakerMode(true);
                     //call.toggleMute();
                     updateStatus("user menjawab");
-                    try {
-                        call.endCall();
-                    } catch (SipException e) {
-                        e.printStackTrace();
-                    }
-                    call.close();
+//                    try {
+//                        call.endCall();
+//                    } catch (SipException e) {
+//                        e.printStackTrace();
+//                    }
+//                    call.close();
                 }
 
                 @Override
@@ -230,7 +224,8 @@ public class AddContactActivity extends AppCompatActivity {
 
             //updateStatus("user ditemukan");
             call = manager.makeAudioCall(me.getUriString(), sipAddress, listener, 30);
-            //call.close();
+//            //call.close();
+            Log.v("MyError",call.getPeerProfile().getUriString());
             if (call.getPeerProfile()!=null){
                 updateStatus("user ditemukan");
                 call.endCall();

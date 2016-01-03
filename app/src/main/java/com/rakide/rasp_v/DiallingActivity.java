@@ -47,7 +47,6 @@ public class DiallingActivity extends AppCompatActivity {
 
         tvDiallingUsername.setText(sipAddress);
         initializeManager();
-        initiateCall();
         btnEndCallDialling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,6 +63,7 @@ public class DiallingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
     }
     public void initializeManager() {
         if(manager == null) {
@@ -99,25 +99,48 @@ public class DiallingActivity extends AppCompatActivity {
             i.setAction("android.SipDemo.INCOMING_CALL");
             PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, Intent.FILL_IN_DATA);
             manager.open(me, pi, null);
+            initiateCall();
+            SipAudioCall.Listener listener = new SipAudioCall.Listener() {
+                // Much of the client's interaction with the SIP Stack will
+                // happen via listeners.  Even making an outgoing call, don't
+                // forget to set up a listener to set things up once the call is established.
+                @Override
+                public void onCallEstablished(SipAudioCall call) {
+                    call.startAudio();
+                    call.setSpeakerMode(true);
+                    updateStatus(call);
+                }
+
+                @Override
+                public void onCallEnded(SipAudioCall call) {
+                    updateStatus("Ready.");
+                }
+
+                @Override
+                public void onCallBusy (SipAudioCall call) {
+                    updateStatus("Busy");
+                }
+            };
 
 
             // This listener must be added AFTER manager.open is called,
             // Otherwise the methods aren't guaranteed to fire.
 
-            manager.setRegistrationListener(me.getUriString(), new SipRegistrationListener() {
-                public void onRegistering(String localProfileUri) {
-                    updateStatus("Logging in with SIP Server...");
-                }
-
-                public void onRegistrationDone(String localProfileUri, long expiryTime) {
-                    updateStatus("Dialing...");
-                }
-
-                public void onRegistrationFailed(String localProfileUri, int errorCode,
-                                                 String errorMessage) {
-                    updateStatus("Login failed. Please check username and password.");
-                }
-            });
+//            manager.setRegistrationListener(me.getUriString(), new SipRegistrationListener() {
+//                public void onRegistering(String localProfileUri) {
+//                    updateStatus("Logging in with SIP Server...");
+//                }
+//
+//                public void onRegistrationDone(String localProfileUri, long expiryTime) {
+//                    updateStatus("Dialing...");
+//                    initiateCall();
+//                }
+//
+//                public void onRegistrationFailed(String localProfileUri, int errorCode,
+//                                                 String errorMessage) {
+//                    updateStatus("Login failed. Please check username and password.");
+//                }
+//            });
         } catch (ParseException pe) {
             updateStatus("Connection Error.");
         } catch (SipException se) {
@@ -146,6 +169,16 @@ public class DiallingActivity extends AppCompatActivity {
                 @Override
                 public void onCallEnded(SipAudioCall call) {
                     updateStatus("Ready.");
+                }
+
+                @Override
+                public void onCallBusy (SipAudioCall call) {
+                    updateStatus("Busy");
+                }
+
+                @Override
+                public void onCalling(SipAudioCall call) {
+                    updateStatus(call);
                 }
             };
 
@@ -207,6 +240,6 @@ public class DiallingActivity extends AppCompatActivity {
         if(useName == null) {
             useName = call.getPeerProfile().getUserName();
         }
-        updateStatus(useName + "@" + call.getPeerProfile().getSipDomain());
+        updateStatus("Calling " + useName + "@" + call.getPeerProfile().getSipDomain());
     }
 }

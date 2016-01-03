@@ -34,7 +34,6 @@ public class LoginActivity extends AppCompatActivity {
     public String password;
     public static String recvUsername = null;
 
-    public SIPAdapter sipAdapter = null;
     public SipManager manager = null;
     public SipProfile me = null;
     public SipAudioCall call = null;
@@ -61,17 +60,11 @@ public class LoginActivity extends AppCompatActivity {
         domain = "10.151.12.205";
         etLoginUsername.setText(username);
 
-        // Set up the intent filter.  This will be used to fire an
-        // IncomingCallReceiver when someone calls the SIP address used by this
-        // application.
-        IntentFilter filter = new IntentFilter();
-        filter.addAction("android.SipDemo.INCOMING_CALL");
-        callReceiver = new IncomingCallReceiver();
-        this.registerReceiver(callReceiver, filter);
+        // remove this
+        etLoginUsername.setText("tities");
+        etLoginPassword.setText("pwd_tities");
+        // end of remove this
 
-        // "Push to talk" can be a serious pain when the screen keeps turning off.
-        // Let's prevent that.
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         initializeManager();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +182,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         try {
             if (me != null) {
+                Log.v("MyError","manager.close()");
                 manager.close(me.getUriString());
             }
         } catch (Exception ee) {
@@ -206,6 +200,7 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 tvStatus.setText(status);
                 if (tvStatus.getText().toString().equals("Ready") ){
+//                    closeLocalProfile();
                     Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                     startActivity(intent);
                     finish();

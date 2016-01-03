@@ -7,6 +7,7 @@ import android.net.sip.SipAudioCall;
 import android.net.sip.SipProfile;
 
 import com.rakide.rasp_v.LoginActivity;
+import com.rakide.rasp_v.MainActivity;
 
 public class IncomingCallReceiver extends BroadcastReceiver {
     /**
@@ -31,7 +32,7 @@ public class IncomingCallReceiver extends BroadcastReceiver {
                 }
             };
 
-            LoginActivity wtActivity = (LoginActivity) context;
+            MainActivity wtActivity = (MainActivity) context;
 
             incomingCall = wtActivity.manager.takeAudioCall(intent, listener);
             incomingCall.answerCall(30);
