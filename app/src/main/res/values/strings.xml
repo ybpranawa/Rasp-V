@@ -13,4 +13,6 @@
     <string name="title_activity_add_contact">AddContactActivity</string>
     <string name="title_activity_unsupported_activity">UnsuppertedActivity</string>
     <string name="title_activity_main_to_dialing">MainToDialingActivity</string>
+    <string name="title_activity_main_to_incoming">MainToIncomingActivity</string>
+    <string name="title_activity_login_to_main">LoginToMainActivity</string>
 </resources>

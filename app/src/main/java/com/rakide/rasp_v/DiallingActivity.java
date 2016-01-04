@@ -112,6 +112,7 @@ public class DiallingActivity extends AppCompatActivity {
 //                                "Error ending call.", se);
                 }
                 //call.close();
+
                 call.close();
                 Intent intent = new Intent(DiallingActivity.this, MainActivity.class);
                 startActivity(intent);

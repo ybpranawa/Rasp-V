@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
                 tvStatus.setText(status);
                 if (tvStatus.getText().toString().equals("Ready") ){
 //                    closeLocalProfile();
-                    Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this,LoginToMainActivity.class);
                     startActivity(intent);
                     finish();
                 }

@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences prefs = getSharedPreferences(SIP_PREF, MODE_PRIVATE);
         username = prefs.getString("username","");
-        username = prefs.getString("username","");
         password = prefs.getString("password","");
         domain = prefs.getString("domain","");
 

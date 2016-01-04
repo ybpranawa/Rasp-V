@@ -83,6 +83,16 @@
             android:label="@string/title_activity_main_to_dialing"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".MainToIncomingActivity"
+            android:label="@string/title_activity_main_to_incoming"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".LoginToMainActivity"
+            android:label="@string/title_activity_login_to_main"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
