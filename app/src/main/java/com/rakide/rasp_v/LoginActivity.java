@@ -81,8 +81,12 @@ public class LoginActivity extends AppCompatActivity {
                     //initiateCall();
                     initializeLocalProfile();
                 }
-                else
-                    Toast.makeText(LoginActivity.this, "Tidak Support", Toast.LENGTH_SHORT).show();
+                else {
+                    Toast.makeText(LoginActivity.this, "Unsupported Device", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(LoginActivity.this,UnsupportedActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 }
             });
         tvLoginRegister.setOnClickListener(new View.OnClickListener() {
