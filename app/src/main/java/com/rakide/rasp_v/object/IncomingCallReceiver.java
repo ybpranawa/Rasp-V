@@ -3,9 +3,11 @@ package com.rakide.rasp_v.object;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.sip.SipAudioCall;
 import android.net.sip.SipProfile;
 
+import com.rakide.rasp_v.CallingActivity;
 import com.rakide.rasp_v.LoginActivity;
 import com.rakide.rasp_v.MainActivity;
 
@@ -20,6 +22,7 @@ public class IncomingCallReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         SipAudioCall incomingCall = null;
         final MainActivity wtActivity = (MainActivity) context;
+//        final CallingActivity callingActivity = (CallingActivity) context;
         try {
 
             SipAudioCall.Listener listener = new SipAudioCall.Listener() {
@@ -47,7 +50,10 @@ public class IncomingCallReceiver extends BroadcastReceiver {
             wtActivity.call = incomingCall;
 
             wtActivity.updateStatus(incomingCall);
-
+//            wtActivity.updateStatus("INCOMING CALL");
+            SharedPreferences.Editor editor = wtActivity.getSharedPreferences("SIP_PREF", wtActivity.MODE_PRIVATE).edit();
+            editor.putString("sipAddress", incomingCall.getPeerProfile().getUriString());
+            editor.commit();
         } catch (Exception e) {
             if (incomingCall != null) {
                 incomingCall.close();

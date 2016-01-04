@@ -24,7 +24,7 @@ public class LoginToMainActivity extends AppCompatActivity {
                 finish();
             }
 
-        }, 2000);
+        }, 1000);
 
     }
 

@@ -2,6 +2,7 @@ package com.rakide.rasp_v;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.sip.SipAudioCall;
 import android.net.sip.SipProfile;
 import android.os.Bundle;
@@ -17,6 +18,8 @@ public class IncomingActivity extends AppCompatActivity {
     private ImageButton btnUpCallDialling;
     private ImageButton btnEndCallDialling;
     private TextView tvDiallingUsername;
+
+    private String sipAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

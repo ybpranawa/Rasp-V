@@ -308,6 +308,11 @@ public class MainActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             public void run() {
                 tvStatusBarMain.setText(status);
+//                if (tvStatusBarMain.getText() == "INCOMING CALL") {
+//                    Intent intent = new Intent(MainActivity.this,CallingActivity.class);
+//                    startActivity(intent);
+//                    finish();
+//                }
             }
         });
     }
