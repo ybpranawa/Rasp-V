@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:text="fanyagriansyah"
             android:textColor="#B3E5FC"
-            android:textSize="40sp"
+            android:textSize="20sp"
             android:gravity="center|top"
             android:layout_weight="1"/>
 

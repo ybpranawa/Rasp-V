@@ -31,16 +31,15 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabs;
     private TextView tvStatusBarMain;
 
-    public String sipAddress = null;
     public SipManager manager = null;
-    public SipProfile me = null;
+    private SipProfile me = null;
     public SipAudioCall call = null;
-    public IncomingCallReceiver callReceiver;
+    private IncomingCallReceiver callReceiver;
 
-    public String username;
-    public String password;
-    public String domain;
-    public static final String SIP_PREF = "SIP_PREF";
+    private String username;
+    private String password;
+    private String domain;
+    private static final String SIP_PREF = "SIP_PREF";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

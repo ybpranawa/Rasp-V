@@ -9,6 +9,7 @@ import android.net.sip.SipManager;
 import android.net.sip.SipProfile;
 import android.net.sip.SipRegistrationListener;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -21,13 +22,13 @@ public class DiallingActivity extends AppCompatActivity {
     private TextView tvDiallingUsername;
     private ImageButton btnEndCallDialling;
 
-    public String domain;
-    public String username;
-    public String password;
-    public String sipAddress;
-    public SipManager manager = null;
-    public SipProfile me = null;
-    public SipAudioCall call = null;
+    private String domain;
+    private String username;
+    private String password;
+    private String sipAddress;
+    private SipManager manager = null;
+    private SipProfile me = null;
+    private SipAudioCall call = null;
 
     public static String recvUsername = null;
 
@@ -47,16 +48,70 @@ public class DiallingActivity extends AppCompatActivity {
 
         tvDiallingUsername.setText(sipAddress);
         initializeManager();
+        try {
+            SipAudioCall.Listener listener = new SipAudioCall.Listener() {
+                // Much of the client's interaction with the SIP Stack will
+                // happen via listeners.  Even making an outgoing call, don't
+                // forget to set up a listener to set things up once the call is established.
+                @Override
+                public void onCallEstablished(SipAudioCall call) {
+                    call.startAudio();
+                    call.setSpeakerMode(true);
+                    updateStatus(call);
+                }
+
+                @Override
+                public void onCallEnded(SipAudioCall call) {
+                    updateStatus("Call ended.");
+                }
+
+                @Override
+                public void onCallBusy (SipAudioCall call) {
+                    updateStatus("The receiver seems busy");
+//                    new Handler().postDelayed(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            Intent mainIntent = new Intent(DiallingActivity.this, MainActivity.class);
+//                            DiallingActivity.this.startActivity(mainIntent);
+//                            DiallingActivity.this.finish();
+//                        }
+//                    }, 3000);
+                }
+
+                @Override
+                public void onCalling(SipAudioCall call) {
+                    updateStatus(call);
+                }
+            };
+
+            call = manager.makeAudioCall(me.getUriString(), sipAddress, listener, 30);
+
+        }
+        catch (Exception e) {
+//            Log.i("WalkieTalkieActivity/InitiateCall", "Error when trying to close manager.", e);
+            if (me != null) {
+                try {
+                    manager.close(me.getUriString());
+                } catch (Exception ee) {
+//                    Log.i("WalkieTalkieActivity/InitiateCall",
+//                            "Error when trying to close manager.", ee);
+                    ee.printStackTrace();
+                }
+            }
+            if (call != null) {
+                call.close();
+            }
+        }
         btnEndCallDialling.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    try {
-                        call.endCall();
-                    } catch (SipException se) {
+                try {
+                    call.endCall();
+                } catch (SipException se) {
 //                        Log.d("WalkieTalkieActivity/onOptionsItemSelected",
 //                                "Error ending call.", se);
-                    }
-                    //call.close();
+                }
+                //call.close();
                 call.close();
                 Intent intent = new Intent(DiallingActivity.this, MainActivity.class);
                 startActivity(intent);
@@ -65,6 +120,7 @@ public class DiallingActivity extends AppCompatActivity {
         });
 
     }
+
     public void initializeManager() {
         if(manager == null) {
             manager = SipManager.newInstance(this);
@@ -99,53 +155,54 @@ public class DiallingActivity extends AppCompatActivity {
             i.setAction("android.SipDemo.INCOMING_CALL");
             PendingIntent pi = PendingIntent.getBroadcast(this, 0, i, Intent.FILL_IN_DATA);
             manager.open(me, pi, null);
-            initiateCall();
-            SipAudioCall.Listener listener = new SipAudioCall.Listener() {
-                // Much of the client's interaction with the SIP Stack will
-                // happen via listeners.  Even making an outgoing call, don't
-                // forget to set up a listener to set things up once the call is established.
-                @Override
-                public void onCallEstablished(SipAudioCall call) {
-                    call.startAudio();
-                    call.setSpeakerMode(true);
-                    updateStatus(call);
-                }
 
-                @Override
-                public void onCallEnded(SipAudioCall call) {
-                    updateStatus("Ready.");
-                }
-
-                @Override
-                public void onCallBusy (SipAudioCall call) {
-                    updateStatus("Busy");
-                }
-            };
+//            SipAudioCall.Listener listener = new SipAudioCall.Listener() {
+//                // Much of the client's interaction with the SIP Stack will
+//                // happen via listeners.  Even making an outgoing call, don't
+//                // forget to set up a listener to set things up once the call is established.
+//                @Override
+//                public void onCallEstablished(SipAudioCall call) {
+//                    call.startAudio();
+//                    call.setSpeakerMode(true);
+//                    updateStatus(call);
+//                }
+//
+//                @Override
+//                public void onCallEnded(SipAudioCall call) {
+//                    updateStatus("Ready.");
+//                }
+//
+//                @Override
+//                public void onCallBusy (SipAudioCall call) {
+//                    updateStatus("Busy");
+//                }
+//            };
 
 
             // This listener must be added AFTER manager.open is called,
             // Otherwise the methods aren't guaranteed to fire.
 
-//            manager.setRegistrationListener(me.getUriString(), new SipRegistrationListener() {
-//                public void onRegistering(String localProfileUri) {
-//                    updateStatus("Logging in with SIP Server...");
-//                }
-//
-//                public void onRegistrationDone(String localProfileUri, long expiryTime) {
-//                    updateStatus("Dialing...");
-//                    initiateCall();
-//                }
-//
-//                public void onRegistrationFailed(String localProfileUri, int errorCode,
-//                                                 String errorMessage) {
-//                    updateStatus("Login failed. Please check username and password.");
-//                }
-//            });
+            manager.setRegistrationListener(me.getUriString(), new SipRegistrationListener() {
+                public void onRegistering(String localProfileUri) {
+                    updateStatus("Logging in with SIP Server...");
+                }
+
+                public void onRegistrationDone(String localProfileUri, long expiryTime) {
+                    updateStatus("Dialing...");
+                    initiateCall();
+                }
+
+                public void onRegistrationFailed(String localProfileUri, int errorCode,
+                                                 String errorMessage) {
+                    updateStatus("Login failed. Please check username and password.");
+                }
+            });
         } catch (ParseException pe) {
             updateStatus("Connection Error.");
         } catch (SipException se) {
             updateStatus("Connection error.");
         }
+//        initiateCall();
     }
     /**
      * Make an outgoing call.
@@ -154,52 +211,60 @@ public class DiallingActivity extends AppCompatActivity {
 
         updateStatus(sipAddress);
 
-        try {
-            SipAudioCall.Listener listener = new SipAudioCall.Listener() {
-                // Much of the client's interaction with the SIP Stack will
-                // happen via listeners.  Even making an outgoing call, don't
-                // forget to set up a listener to set things up once the call is established.
-                @Override
-                public void onCallEstablished(SipAudioCall call) {
-                    call.startAudio();
-                    call.setSpeakerMode(true);
-                    updateStatus(call);
-                }
-
-                @Override
-                public void onCallEnded(SipAudioCall call) {
-                    updateStatus("Ready.");
-                }
-
-                @Override
-                public void onCallBusy (SipAudioCall call) {
-                    updateStatus("Busy");
-                }
-
-                @Override
-                public void onCalling(SipAudioCall call) {
-                    updateStatus(call);
-                }
-            };
-
-            call = manager.makeAudioCall(me.getUriString(), sipAddress, listener, 30);
-
-        }
-        catch (Exception e) {
-//            Log.i("WalkieTalkieActivity/InitiateCall", "Error when trying to close manager.", e);
-            if (me != null) {
-                try {
-                    manager.close(me.getUriString());
-                } catch (Exception ee) {
-//                    Log.i("WalkieTalkieActivity/InitiateCall",
-//                            "Error when trying to close manager.", ee);
-                    ee.printStackTrace();
-                }
-            }
-            if (call != null) {
-                call.close();
-            }
-        }
+//        try {
+//            SipAudioCall.Listener listener = new SipAudioCall.Listener() {
+//                // Much of the client's interaction with the SIP Stack will
+//                // happen via listeners.  Even making an outgoing call, don't
+//                // forget to set up a listener to set things up once the call is established.
+//                @Override
+//                public void onCallEstablished(SipAudioCall call) {
+//                    call.startAudio();
+//                    call.setSpeakerMode(true);
+//                    updateStatus(call);
+//                }
+//
+//                @Override
+//                public void onCallEnded(SipAudioCall call) {
+//                    updateStatus("Call ended.");
+//                }
+//
+//                @Override
+//                public void onCallBusy (SipAudioCall call) {
+//                    updateStatus("The receiver seems busy");
+////                    new Handler().postDelayed(new Runnable() {
+////                        @Override
+////                        public void run() {
+////                            Intent mainIntent = new Intent(DiallingActivity.this, MainActivity.class);
+////                            DiallingActivity.this.startActivity(mainIntent);
+////                            DiallingActivity.this.finish();
+////                        }
+////                    }, 3000);
+//                }
+//
+//                @Override
+//                public void onCalling(SipAudioCall call) {
+//                    updateStatus(call);
+//                }
+//            };
+//
+//            call = manager.makeAudioCall(me.getUriString(), sipAddress, listener, 30);
+//
+//        }
+//        catch (Exception e) {
+////            Log.i("WalkieTalkieActivity/InitiateCall", "Error when trying to close manager.", e);
+//            if (me != null) {
+//                try {
+//                    manager.close(me.getUriString());
+//                } catch (Exception ee) {
+////                    Log.i("WalkieTalkieActivity/InitiateCall",
+////                            "Error when trying to close manager.", ee);
+//                    ee.printStackTrace();
+//                }
+//            }
+//            if (call != null) {
+//                call.close();
+//            }
+//        }
     }
     /**
      * Closes out your local profile, freeing associated objects into memory
@@ -227,6 +292,16 @@ public class DiallingActivity extends AppCompatActivity {
         this.runOnUiThread(new Runnable() {
             public void run() {
                 tvDiallingUsername.setText(status);
+                if (tvDiallingUsername.getText() == "Call ended." || tvDiallingUsername.getText() == "The receiver seems busy"){
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent mainIntent = new Intent(DiallingActivity.this, MainActivity.class);
+                            DiallingActivity.this.startActivity(mainIntent);
+                            DiallingActivity.this.finish();
+                        }
+                    }, 2000);
+                }
             }
         });
     }
@@ -237,9 +312,10 @@ public class DiallingActivity extends AppCompatActivity {
      */
     public void updateStatus(SipAudioCall call) {
         String useName = call.getPeerProfile().getDisplayName();
+        useName = call.getPeerProfile().getProfileName();
         if(useName == null) {
             useName = call.getPeerProfile().getUserName();
         }
-        updateStatus("Calling " + useName + "@" + call.getPeerProfile().getSipDomain());
+        updateStatus("Ongoing call " + useName + "@" + call.getPeerProfile().getSipDomain());
     }
 }

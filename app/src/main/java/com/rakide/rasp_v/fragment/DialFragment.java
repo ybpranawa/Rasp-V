@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.net.sip.*;
 
 import com.rakide.rasp_v.DiallingActivity;
+import com.rakide.rasp_v.MainToDialingActivity;
 import com.rakide.rasp_v.R;
 
 import java.text.ParseException;
@@ -184,7 +185,7 @@ public class DialFragment extends Fragment {
                 editor.putString("sipAddress", sipAddress);
                 editor.commit();
 
-                Intent intent = new Intent(getActivity(), DiallingActivity.class);
+                Intent intent = new Intent(getActivity(), MainToDialingActivity.class);
                 startActivity(intent);
                 getActivity().finish();
             }

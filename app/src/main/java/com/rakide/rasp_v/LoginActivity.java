@@ -28,16 +28,16 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvLoginRegister;
     private TextView tvStatus;
 
-    public static final String SIP_PREF = "SIP_PREF";
-    public static String domain;
-    public String username;
-    public String password;
+    private static final String SIP_PREF = "SIP_PREF";
+    private static String domain;
+    private String username;
+    private String password;
     public static String recvUsername = null;
 
-    public SipManager manager = null;
-    public SipProfile me = null;
-    public SipAudioCall call = null;
-    public IncomingCallReceiver callReceiver;
+    private SipManager manager = null;
+    private SipProfile me = null;
+    private SipAudioCall call = null;
+    private IncomingCallReceiver callReceiver;
 
     private static final int CALL_ADDRESS = 1;
     private static final int SET_AUTH_INFO = 2;
